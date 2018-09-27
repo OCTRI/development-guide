@@ -32,7 +32,7 @@ Once the software is ready for a release, create a tag in Git for it. A tag is s
 
 Continuous integration servers or use of the Maven release plugin can also automate much of this. With the tag pushed to the remote server, a user can check it out at any point and be confident that they are using a stable, unchanging version of the software. Checkout works just like a branch, except that the user isn't able to make changes to the tag:
 
-git checkout v1.0.0
+```git checkout v1.0.0```
 
 ### Rule 5: Use semantic versioning (MAJOR.MINOR.PATCH) to indicate the impact of the changes.
 
@@ -48,11 +48,13 @@ Each project will have individual release schedules based on the unique properti
 
 Even with careful attention to detail, sometimes critical bugs can be introduced in a release. While it may be tempting to delete the tag, this can have a negative downstream impact on users. Once a release is tagged, you have essentially created a contract with the end user promising that no changes will be made to that version. The best approach in this case is to create a new branch from the tag, fix the bug, and then create a new release indicating it should be used instead. Update release notes on previous versions.
 
+```
 git checkout -b v1.0.1 v1.0.0 (Checks out new branch v1.0.1 from tag v1.0.0)
 ...Make changes in branch including changing pom version to "1.0.1"...
 git commit -m "Critical bug fix for v1.0.0"
 git tag -a v1.0.1 -m "Release Version 1.0.1"
 git push -u origin v1.0.1
+```
 
 Note that in this instance, the release occurred from the branch and not from master as previously advised. The master branch may be on an entirely different release when the bug is discovered, so this release from the tag in question is important for downstream users. The bug must also be fixed in master and potentially in any other releases that occurred in the intervening period. The general rule of thumb is to update the most recent version in the major line, since MINOR and PATCH versions should not introduce any breaking changes. So if you've released Version 2.1.1 when you discover a critical bug in the 1.x.x line, only grab the most recent 1.x.x tag and fix it. If the bug is also in the 2.x.x line, create a branch 2.1.2 from tag 2.1.1 and release and also make sure the change is persisted in master going forward.
 
