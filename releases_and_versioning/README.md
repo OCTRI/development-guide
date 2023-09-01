@@ -11,15 +11,15 @@ The Maven convention for versioning software uses the suffix "-SNAPSHOT" to indi
 	<version>1.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-The version should be set to the next targeted release of the software. In the case above, the next planned release is version 1.0.1. All branches, including "master", should be packaged as a SNAPSHOT until the point in time that you are ready to release.
+The version should be set to the next targeted release of the software. In the case above, the next planned release is version 1.0.1. All branches, including "main" ("master" in older projects), should be packaged as a SNAPSHOT until the point in time that you are ready to release.
 
 ### Rule 2: Use Git branches for all development work
 
-All experimental development work is done in branches and merged to "master" through pull requests reviewed by peers. Any branch merged should pass all tests and may benefit from other plugins to examine code quality.
+All experimental development work is done in branches and merged to "main" through pull requests reviewed by peers. Any branch merged should pass all tests and may benefit from other plugins to examine code quality.
 
-### Rule 3: Always release from a single branch, usually "master"
+### Rule 3: Always release from a single branch, usually "main"
 
-One branch in the project should be designated as the branch to release from. Generally, this is how "master" is used. While this branch may have breaking changes compared to other release points, it should always be stable in terms of compile and run time errors and tests.
+One branch in the project should be designated as the branch to release from. Generally, this is how "main" is used. In earlier versions of Git, the convention was to call it the "master" branch, so you may see either depending on how old the project is. While this branch may have breaking changes compared to other release points, it should always be stable in terms of compile and run time errors and tests.
 
 ### Rule 4: Always create a Tag for releases, so end users can upgrade on their own schedule
 
@@ -55,5 +55,5 @@ git tag -a v1.0.2 -m "Release Version 1.0.2"
 git push -u origin v1.0.2
 ```
 
-Note that in this instance, the release occurred from the branch and not from master as previously advised. Master may be on an entirely different release when the bug is discovered, so this release from the tag in question is important for downstream users. The bug must also be fixed in master and potentially in any other releases that occurred in the intervening period. The general rule of thumb is to update the most recent version in the major line, since MINOR and PATCH versions should not introduce any breaking changes. So if you've released Version 2.1.1 when you discover a critical bug in the 1.x.x line, only grab the most recent 1.x.x tag and fix it. If the bug is also in the 2.x.x line, create a branch 2.1.2 from tag 2.1.1 and release and also make sure the change is persisted in master going forward.
+Note that in this instance, the release occurred from the branch and not from main as previously advised. Main may be on an entirely different release when the bug is discovered, so this release from the tag in question is important for downstream users. The bug must also be fixed in master and potentially in any other releases that occurred in the intervening period. The general rule of thumb is to update the most recent version in the major line, since MINOR and PATCH versions should not introduce any breaking changes. So if you've released Version 2.1.1 when you discover a critical bug in the 1.x.x line, only grab the most recent 1.x.x tag and fix it. If the bug is also in the 2.x.x line, create a branch 2.1.2 from tag 2.1.1 and release and also make sure the change is persisted in master going forward.
 
